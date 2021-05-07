@@ -7,13 +7,13 @@ import streamlit as st
 # %matplotlib inline
 # ↑これはjupyter上で必要だったコード
 
-st.title('米国株化可視化アプリ')
+st.title('【米国株】モニタリングアプリbyO')
 
 
 # 第一段階。作っていく。
 st.sidebar.write("""
     # GAFA
-    こちらは株価可視化ツールです。以下のオプションから表示日数を指定できます。
+    こちらは米国の株価をモニタリングするアプリだよ。以下のオプションから表示日数を指定できるよ。
 """)
 
 st.sidebar.write("""
@@ -24,7 +24,7 @@ days = st.sidebar.slider('日数',1,50,20)
 
 # エフストリングを使う場合は冒頭にf。{days}で、上の行の数字を使うため。
 st.write(f""" 
-    ### 過去 **{days}日間** のGADA株価
+    ### 過去 **{days}日間** の株価だよ～～
 """)
 
 
@@ -49,7 +49,7 @@ try:
         ## 株価の範囲指定
     """)
     ymin, ymax = st.sidebar.slider(
-        '範囲を指定してください。', 0.0, 3500.0, (0.0, 3500.0) # ()は初期値。その中は、初期値のminと初期値のmaxになる。また、2つの値が返ることになる。
+        '範囲を指定してね。', 0.0, 3500.0, (0.0, 3500.0) # ()は初期値。その中は、初期値のminと初期値のmaxになる。また、2つの値が返ることになる。
     )
 
     tickers = {
@@ -62,14 +62,14 @@ try:
     }
     df = get_data(days,tickers)
     companies = st.multiselect(
-        '会社名を選択してください',
+        '会社名を選択してね',
         list(df.index), # dfが表を示す。jupyterで確認すると、df.indexが会社名一覧になる。それをlist()でくくると、リスト形式で渡せる。
         ['google', 'amazon', 'facebook', 'apple'] # デフォルト値の設定。これもリスト。
     )
 
     # companiesが0社のときに、エラー表示をさせたい。
     if not companies:
-        st.error('最低1社は選んでください')
+        st.error('最低1社は選んで！')
     else:
         data = df.loc[companies] # エラーじゃない場合はデータを表示する、という「定義」をする。
         st.write("### 株価 (USD)", data.sort_index()) # 「,」以降、上で定義したデータを表示したくて記載。なお、更にindexでソートもしておくと見やすいので続けて記載。
