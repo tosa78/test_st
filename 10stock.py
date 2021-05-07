@@ -7,29 +7,30 @@ import streamlit as st
 # %matplotlib inline
 # ↑これはjupyter上で必要だったコード
 
-st.title('【米国株】モニタリングアプリbyO')
+st.title('【米国株】モニタリングアプリ')
 
 
 # 第一段階。作っていく。
 st.sidebar.write("""
-    # GAFA
-    こちらは米国の株価をモニタリングするアプリだよ。以下のオプションから表示日数を指定できるよ。
+    # 設定
+    以下のオプションから表示日数を指定できるよ。
 """)
 
 st.sidebar.write("""
-    ## 表示日数選択
+    ## 表示日数の選択
 """)
 
 days = st.sidebar.slider('日数',1,50,20)
 
 # エフストリングを使う場合は冒頭にf。{days}で、上の行の数字を使うため。
 st.write(f""" 
-    ### サイドバーで設定できるよ～～
-    ### 過去 **{days}日間** の株価だよ～～
+    ### 過去 **{days}日間** の株価
+    サイドバーで設定ができるよ～～
+
 """)
 
 
-@st.cache # キャッシュ。下のデータを毎回取得せずにキャッシュに為ておける。
+@st.cache # キャッシュ。下のデータを毎回取得せずにキャッシュにためておける。
 def get_data(days, tickers):
     df = pd.DataFrame()
     for company in tickers.keys():
@@ -96,3 +97,4 @@ except:
     st.error("おっと！何かエラーです")
 # tryとexceptで
 
+'2021/05/07 byO'
